@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    creative_cocktails (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (10.4.2)
+    require_all (2.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.16)
+  creative_cocktails!
+  rake (~> 10.0)
+  require_all
+
+BUNDLED WITH
+   1.16.2

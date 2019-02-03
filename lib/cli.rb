@@ -20,8 +20,10 @@ class CLI
     def drinks_by_name
         puts "What drink did you have in mind?"
         user_input = gets.chomp
-        #search the api
+        seach_results = APIService.search_by_name(user_input)
         puts "Here's what I found for #{user_input} recipes:"
+        drink = Drink.new(seach_results)
+        drink.display
     end
 
     def drinks_by_ingredient

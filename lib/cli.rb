@@ -29,8 +29,11 @@ class CLI
     def drinks_by_ingredient
         puts "What ingredient did you have in mind?"
         user_input = gets.chomp
-        #search the api
-        puts "These drinks all include #{user_input}:"
+        seach_results = APIService.search_by_ingredient(user_input)
+        puts "These drinks all include #{user_input}."
+        puts "Select a drink to learn more about it!"
+        drink = Drink.new(seach_results)
+        puts drink.name
     end
 
     def random_drink

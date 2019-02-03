@@ -32,7 +32,9 @@ class CLI
     end
 
     def random_drink
-        #search the api
-        puts "Let me tell you about..."
+        drink = APIService.fetch_random
+        selection = Drink.new(drink)
+        puts "Let me tell you about #{selection.name}"
+        selection.display
     end
 end

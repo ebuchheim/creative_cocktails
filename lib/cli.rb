@@ -32,8 +32,12 @@ class CLI
         seach_results = APIService.search_by_ingredient(user_input)
         puts "These drinks all include #{user_input}."
         puts "Select a drink to learn more about it!"
-        drink = Drink.new(seach_results)
-        puts drink.name
+        counter = 1
+        seach_results.each do |result|
+            drink = Drink.new(result)
+            puts "#{counter}. #{drink.name}"
+            counter += 1
+        end
     end
 
     def random_drink

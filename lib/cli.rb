@@ -21,9 +21,14 @@ class CLI
         puts "What drink did you have in mind?"
         user_input = gets.chomp
         seach_results = APIService.search_by_name(user_input)
-        puts "Here's what I found for #{user_input} recipes:"
-        drink = Drink.new(seach_results)
-        drink.display
+        puts "Here's what I found for #{user_input} recipes."
+        puts "Select a drink to learn more about it!"
+        counter = 1
+        seach_results.each do |result|
+            drink = Drink.new(result)
+            puts "#{counter}. #{drink.name}"
+            counter += 1
+        end
     end
 
     def drinks_by_ingredient

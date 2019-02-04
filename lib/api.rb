@@ -9,7 +9,7 @@ class APIService
     def self.search_by_name(name)
         link = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + name
         response = HTTParty.get(link)
-        response.parsed_response["drinks"][0]
+        response.parsed_response["drinks"]
     end
 
     def self.search_by_ingredient(ingredient)

@@ -22,12 +22,27 @@ class CLI
         user_input = gets.chomp
         seach_results = APIService.search_by_name(user_input)
         puts "Here's what I found for #{user_input} recipes."
-        puts "Select a drink to learn more about it!"
         counter = 1
-        seach_results.each do |result|
+        drink_results = seach_results.map do |result|
             drink = Drink.new(result)
             puts "#{counter}. #{drink.name}"
             counter += 1
+            drink
+        end
+        drink_display(drink_results)
+    end
+
+    def drink_display(drink_results)
+        puts "Select a drink to learn more about it!"
+        user_selection = gets.chomp
+        total = drink_results.count
+        user_selection = user_selection.to_i
+        if user_selection >= 1 && user_selection <= total
+            index = user_selection - 1
+            drink_to_show = drink_results[index]
+            puts drink_to_show.display
+        else
+            puts "Sorry, please choose a number from the list above."
         end
     end
 

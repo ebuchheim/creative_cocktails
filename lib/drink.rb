@@ -45,13 +45,20 @@ class Drink
     end
 
     def display
-        puts "Name: #{@name}"
-        puts "Glass: #{@glass}"
-        puts "Category: #{@category}"
-        puts "How do I make this marvelous creation?  First, gather these ingredients:"
+        puts "===================================="
+        puts "NAME: #{@name}"
+        puts "GLASS: #{@glass}"
+        if @category.to_s.length > 1
+            puts "CATEGORY: #{@category}"
+        end
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts "Want to enjoy this marvelous creation?"
+        puts "First, gather these ingredients:"
         display_ingredients
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         puts "Then follow these instructions:"
         puts "#{@instructions}"
+        puts "===================================="
     end
 
     def display_ingredients
@@ -77,7 +84,7 @@ class Drink
                 if measure != "" && measure
                     puts " - #{measure.strip} #{ingredient}"
                 else
-                    puts " - #{ingredient}"
+                    puts " - #{ingredient.strip}"
                 end
             end
         end

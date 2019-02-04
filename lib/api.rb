@@ -17,4 +17,10 @@ class APIService
         response = HTTParty.get(link)
         response.parsed_response["drinks"]
     end
+
+    def self.search_by_id(drink_id)
+        link = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drink_id
+        response = HTTParty.get(link)
+        response.parsed_response["drinks"][0]
+    end
 end

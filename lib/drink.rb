@@ -4,10 +4,11 @@ class Drink
     :ingredient5, :measure5, :ingredient6, :measure6, :ingredient7, :measure7,\
     :ingredient8, :measure8, :ingredient9, :measure9, :ingredient10, :measure10,\
     :ingredient11, :measure11, :ingredient12, :measure12, :ingredient13, :measure13,\
-    :ingredient14, :measure14, :ingredient15, :measure15 
+    :ingredient14, :measure14, :ingredient15, :measure15, :drinkId
 
     def initialize(drink)
         @name = drink["strDrink"]
+        @drinkId = drink["idDrink"]
         @instructions = drink["strInstructions"]
         @glass = drink["strGlass"]
         @category = drink["strIBA"]

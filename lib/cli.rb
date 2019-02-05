@@ -33,7 +33,6 @@ class CLI
             drink
         end
         drink_display(drink_results)
-        back_to_menu
     end
 
     def drink_display(drink_results)
@@ -47,10 +46,12 @@ class CLI
             drink_to_show = drink_results[index]
             if drink_to_show.glass != nil
                 drink_to_show.display
+                back_main_or_quit(drink_results)
             else
                 drink = APIService.search_by_id(drink_to_show.drinkId)
                 drink = Drink.new(drink)
                 drink.display
+                back_main_or_quit(drink_results)
             end
         elsif user_selection == 0
             CLI.new
@@ -73,7 +74,6 @@ class CLI
             drink
         end
         drink_display(drink_results)
-        back_to_menu
     end
 
     def random_drink
@@ -92,17 +92,26 @@ class CLI
         end
     end
 
-    def back_to_menu
+    def back_main_or_quit(drink_results)
+        puts "Enter b to go back to the previous list."
         puts "Enter 0 to return to the main menu."
         puts "Enter q to quit the program."
         user_input = gets.chomp
         if user_input == "0"
             CLI.new
+        elsif user_input == "b"
+            counter = 1
+            drink_results.each do |drink|
+                puts "  #{counter}. #{drink.name}"
+                counter += 1
+            end
+            drink_display(drink_results)
+
         elsif user_input == "q"
             puts "Good bye!"
         else
             puts "Sorry, I didn't get that."
-            back_to_menu
+            back_main_or_quit(drink_results)
         end
     end
 end

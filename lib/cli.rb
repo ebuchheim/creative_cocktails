@@ -22,17 +22,22 @@ class CLI
     def drinks_by_name
         puts "What drink did you have in mind?"
         user_input = gets.chomp
-        seach_results = APIService.search_by_name(user_input)
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        puts "I found these recipes for #{user_input}:"
-        counter = 1
-        drink_results = seach_results.map do |result|
-            drink = Drink.new(result)
-            puts "  #{counter}. #{drink.name}"
-            counter += 1
-            drink
+        search_results = APIService.search_by_name(user_input)
+        if search_results != nil
+            puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            puts "I found these recipes for #{user_input}:"
+            counter = 1
+            drink_results = search_results.map do |result|
+                drink = Drink.new(result)
+                puts "  #{counter}. #{drink.name}"
+                counter += 1
+                drink
+            end
+            drink_display(drink_results)
+        else
+            puts "Sorry, I don't have any #{user_input} drinks."
+            main_or_quit
         end
-        drink_display(drink_results)
     end
 
     def drink_display(drink_results)
@@ -44,15 +49,10 @@ class CLI
         if user_selection >= 1 && user_selection <= total
             index = user_selection - 1
             drink_to_show = drink_results[index]
-            if drink_to_show.glass != nil
-                drink_to_show.display
-                back_main_or_quit(drink_results)
-            else
-                drink = APIService.search_by_id(drink_to_show.drinkId)
-                drink = Drink.new(drink)
-                drink.display
-                back_main_or_quit(drink_results)
-            end
+            drink = APIService.search_by_id(drink_to_show.drinkId)
+            drink = Drink.new(drink)
+            drink.display
+            back_main_or_quit(drink_results)
         elsif user_selection == 0
             CLI.new
         else
@@ -63,17 +63,22 @@ class CLI
     def drinks_by_ingredient
         puts "What ingredient did you have in mind?"
         user_input = gets.chomp
-        seach_results = APIService.search_by_ingredient(user_input)
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        puts "These drinks all include #{user_input}."
-        counter = 1
-        drink_results = seach_results.map do |result|
-            drink = Drink.new(result)
-            puts "  #{counter}. #{drink.name}"
-            counter += 1
-            drink
+        search_results = APIService.search_by_ingredient(user_input)
+        if search_results != nil
+            puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            puts "These drinks all include #{user_input}."
+            counter = 1
+            drink_results = search_results.map do |result|
+                drink = Drink.new(result)
+                puts "  #{counter}. #{drink.name}"
+                counter += 1
+                drink
+            end
+            drink_display(drink_results)
+        else
+            puts "Sorry, I don't have any #{user_input} drinks."
+            main_or_quit
         end
-        drink_display(drink_results)
     end
 
     def random_drink
@@ -83,12 +88,15 @@ class CLI
         puts "Let me tell you about #{selection.name}!"
         selection.display
         puts "If you'd like to see another random recipe, press 1!"
-        puts "To return to the main menu, press 0."
+        puts "Enter 0 to return to the main menu."
+        puts "Enter q to quit the program."
         user_input = gets.chomp
         if user_input == "1"
             random_drink
-        else
+        elsif user_input == "0"
             CLI.new
+        elsif user_input == "q"
+            puts "Good bye!"
         end
     end
 
@@ -106,7 +114,6 @@ class CLI
                 counter += 1
             end
             drink_display(drink_results)
-
         elsif user_input == "q"
             puts "Good bye!"
         else
@@ -114,4 +121,19 @@ class CLI
             back_main_or_quit(drink_results)
         end
     end
+
+    def main_or_quit
+        puts "Enter 0 to return to the main menu."
+        puts "Enter q to quit the program."
+        user_input = gets.chomp
+        if user_input == "0"
+            CLI.new
+        elsif user_input == "q"
+            puts "Good bye!"
+        else
+            puts "Sorry, I didn't get that."
+            main_or_quit
+        end 
+    end
+
 end

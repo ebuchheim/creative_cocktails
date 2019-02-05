@@ -15,7 +15,11 @@ class APIService
     def self.search_by_ingredient(ingredient)
         link = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + ingredient
         response = HTTParty.get(link)
-        response.parsed_response["drinks"]
+        if response.parsed_response != nil
+            response.parsed_response["drinks"]
+        else
+            nil
+        end
     end
 
     def self.search_by_id(drink_id)

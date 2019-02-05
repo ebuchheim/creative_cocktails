@@ -94,9 +94,15 @@ class CLI
 
     def back_to_menu
         puts "Enter 0 to return to the main menu."
+        puts "Enter q to quit the program."
         user_input = gets.chomp
         if user_input == "0"
             CLI.new
+        elsif user_input == "q"
+            puts "Good bye!"
+        else
+            puts "Sorry, I didn't get that."
+            back_to_menu
         end
     end
 end

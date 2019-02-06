@@ -36,7 +36,13 @@ class CLI
             drink_display(drink_results)
         else
             puts "Sorry, I don't have any #{user_input} drinks."
-            main_or_quit
+            puts "Want to search again? Please enter (y)es or (n)o."
+            user_answer = gets.chomp
+            if user_answer == "n"
+                main_or_quit
+            elsif user_answer == "y"
+                drinks_by_name
+            end
         end
     end
 
@@ -77,7 +83,13 @@ class CLI
             drink_display(drink_results)
         else
             puts "Sorry, I don't have any #{user_input} drinks."
-            main_or_quit
+            puts "Want to search again? Please enter (y)es or (n)o."
+            user_answer = gets.chomp
+            if user_answer == "n"
+                main_or_quit
+            elsif user_answer == "y"
+                drinks_by_ingredient
+            end
         end
     end
 
@@ -135,5 +147,4 @@ class CLI
             main_or_quit
         end 
     end
-
 end
